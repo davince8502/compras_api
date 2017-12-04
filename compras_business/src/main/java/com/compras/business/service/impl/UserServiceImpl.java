@@ -100,10 +100,16 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void crearUsuario(Usuario usuario) throws Exception {
 		
-		Usuario user = getUserByEmail(usuario.getEmail());
+		Usuario OldUser = getUserByEmail(usuario.getEmail());
 		
-		if(user != null){
+		if(OldUser != null){
 			new ValidationException(ErrorCodeEnum.EMAIL_REPETIDO, usuario.getEmail());
+		}
+		
+		OldUser = this.userRepository.findUserByNumIdentificacion(usuario.getNumeroDocumento());
+		
+		if(OldUser != null){
+			new ValidationException(ErrorCodeEnum.NI_REPETIDO, usuario.getEmail());
 		}
 		
 		this.userRepository.save(usuario);
