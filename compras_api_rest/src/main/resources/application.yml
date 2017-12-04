@@ -1,0 +1,35 @@
+
+rest.security.jwt:
+  tokenExpirationTime: 60 # Number of minutes
+  refreshTokenExpTime: 60 # Minutes
+  tokenIssuer: compras_api
+  tokenSigningKey: pass12345
+  
+rest.security.web:
+  pathWihtoutAuth: /api/**  
+  tokenBasedAuthEntryPoint: /auth/**
+
+
+spring:
+  messages:
+    basename: locale/messages
+    cache-seconds: -1
+    encoding: UTF-8
+    fallback-to-system-locale: true 
+
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/compras_tienda?currentSchema=compras_tienda
+  driverClassName: org.postgresql.Driver
+  username: adminstore
+  password: tienda1234
+  data: "classpath*:data.sql"
+  
+spring.jpa:
+  database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+   
+# hibernate.ddl-auto: create
+  show-sql: true
+
+#properties.hibernate.format_sql: true
+  

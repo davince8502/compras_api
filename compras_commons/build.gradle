@@ -1,0 +1,41 @@
+buildscript {
+	
+	repositories {
+		mavenCentral()
+	}	
+}
+
+plugins { id "io.spring.dependency-management" version "1.0.3.RELEASE" }
+
+ext {
+	springBootVersion = '1.5.9.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+
+jar {
+    baseName = 'compras_commons'
+    version = '0.0.1-SNAPSHOT'
+}
+	
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('com.google.code.gson:gson')
+	compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.3.2'
+	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.8'
+	compile('org.springframework.boot:spring-boot-starter')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}

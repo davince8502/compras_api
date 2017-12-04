@@ -1,0 +1,11 @@
+rootProject.name = 'compras_api'
+include ':security_rest'
+include ':compras_commons'
+include ':compras_domain'
+include ':compras_business'
+include ':compras_api_rest'
+
+
+
+
+

@@ -1,0 +1,11 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.compras.properties.AplicacionSettings",
+      "name": "application",
+      "type": "com.compras.properties.AplicacionSettings"
+    }
+  ],
+  "properties": []
+}
