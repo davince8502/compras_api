@@ -3,7 +3,10 @@ COMPRAS API TEST:
 
 servicios web REST base para compras basado en SPRING. Usa PostgreSQL como base de datos.
 
-**Requerimientos** : Java 8.0
+**Requerimientos** : Java 8.0, 
+		     PostgresSQL, 
+		     Gradle, 
+		     Eclipse.
 
 
 ###  Clonar / Descargar
