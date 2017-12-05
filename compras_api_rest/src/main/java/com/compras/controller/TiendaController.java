@@ -20,7 +20,6 @@ import com.compras.commons.emuns.ErrorCodeEnum;
 import com.compras.commons.exception.ValidationException;
 import com.compras.domain.dto.FieldErrorDTO;
 import com.compras.domain.dto.ResponseServiceDTO;
-import com.compras.domain.model.Producto;
 import com.compras.domain.model.Tienda;
 
 
@@ -149,28 +148,15 @@ public class TiendaController  extends AbstratcController{
 		
 		try {				
 		
-			try {
+			try {		
 				
-				
-				if(CollectionUtils.isNotEmpty(tienda.getProductos())){					
-					
-					for (Producto producto : tienda.getProductos()) {
+				if(CollectionUtils.isNotEmpty(tienda.getProductos())){	
 						
-						if(!(producto.getId() != null &&  producto.getId() > 0)){
-					
-							List<FieldErrorDTO> errores = new ArrayList<>();					
-							errores.add(new FieldErrorDTO("id", mesaggesGestorUtil.getMessage(Constantes.ERROR_VALIDACION_CAMPO_REQUERIDO, "id")));
-							
-							respuesta.setErrores(errores);
-							throw new ValidationException(ErrorCodeEnum.CAMPOS_INVALIDOS);							
-						}
-					}
+					this.validarCamposProductos(tienda.getProductos(), respuesta);
 					
 				}else{
 					throw new ValidationException(ErrorCodeEnum.PRODUCTS_LIST_EMPTY);
-				}	
-			
-				
+				}
 			 		
 				tiendaService.addProductosToTienda(tienda);
 				respuesta.setResponseCode(ErrorCodeEnum.OK.getCode());

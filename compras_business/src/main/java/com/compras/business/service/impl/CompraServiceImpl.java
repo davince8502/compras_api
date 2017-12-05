@@ -55,7 +55,7 @@ public class CompraServiceImpl implements CompraService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public Compra saveCompra(Compra compra) throws Exception {
 		
 		
@@ -91,8 +91,7 @@ public class CompraServiceImpl implements CompraService {
 				
 				if(OldProducto == null){
 					throw new ValidationException(ErrorCodeEnum.PRODUCTO_NO_FOUND, producto.getId());
-				}
-				
+				}				
 				
 				if(tiendaProductoRepository.existProductoIntoTienda(producto.getId(), compra.getIdTienda() ) == 0){
 					throw new ValidationException(ErrorCodeEnum.PRODUCTO_NO_ESTA_EN_TIENDA, producto.getId(), compra.getIdTienda());
@@ -104,6 +103,8 @@ public class CompraServiceImpl implements CompraService {
 				CompraProducto compraProducto = new CompraProducto();
 				compraProducto.setCompra(compra);
 				compraProducto.setProducto(producto);
+				compraProducto.setPrecio(producto.getPrecio());
+				compraProducto.setCantidad(producto.getCantidad());
 				
 				compraProductoRepository.save(compraProducto);
 				

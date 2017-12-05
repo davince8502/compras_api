@@ -337,8 +337,7 @@ CREATE TABLE compras_tienda.producto (
 			id bigserial NOT NULL,
 			nombre VARCHAR(200) NOT NULL,
 			descripcion VARCHAR(500),
-			codigo_barras VARCHAR(100) NOT NULL,
-			precio double precision DEFAULT 0,			
+			codigo_barras VARCHAR(100) NOT NULL,					
 			activo boolean DEFAULT true,
 			creado_por BIGINT,
 			creado_en timestamp without time zone DEFAULT now(),
@@ -382,6 +381,7 @@ CREATE TABLE compras_tienda.tienda_producto (
                 tienda_id bigserial NOT NULL,
                 producto_id BIGINT NOT NULL,
 				cantidad BIGINT DEFAULT 0,
+				precio double precision DEFAULT 0,	
 				activo boolean DEFAULT true,
                 creado_por BIGINT,
                 creado_en timestamp without time zone DEFAULT now(),
@@ -443,9 +443,20 @@ CREATE TABLE compras_tienda.compra (
 			creado_en timestamp without time zone DEFAULT now(),
 			modificado_por BIGINT,
 			modificado_en timestamp without time zone DEFAULT now(),
+			FOREIGN KEY (id_cliente) REFERENCES compras_tienda.usuario (id) MATCH SIMPLE
+				ON DELETE NO ACTION
+				ON UPDATE NO ACTION
+				NOT DEFERRABLE,
+			FOREIGN KEY (id_tienda) REFERENCES compras_tienda.tienda (id) MATCH SIMPLE
+				ON DELETE NO ACTION
+				ON UPDATE NO ACTION
+				NOT DEFERRABLE,
 			CONSTRAINT compra_pk PRIMARY KEY (id),
 			
 			CHECK (estado = 'INICIADO' OR estado = 'ENVIADO' OR estado = 'APROBADO' OR estado = 'RECHAZADO' OR estado = 'PAGADO' OR estado = 'CERRADO'),
+			CHECK (tipo_pago = 1 OR tipo_pago = 2 OR tipo_pago = 3)
+			
+
 			
 )
 WITH (
@@ -481,6 +492,8 @@ COMMENT ON TRIGGER fecha_modificacion_compra ON compras_tienda.compra
 CREATE TABLE compras_tienda.compra_producto (
                 compra_id bigserial NOT NULL,
                 producto_id BIGINT NOT NULL,
+				cantidad BIGINT DEFAULT 0,
+				precio double precision DEFAULT 0,	
 				activo boolean DEFAULT true,
                 creado_por BIGINT,
                 creado_en timestamp without time zone DEFAULT now(),

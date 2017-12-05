@@ -42,6 +42,9 @@ public class TiendaProducto extends BaseEntity<Long> implements Serializable {
 	
 	@FieldValidate
 	private Long cantidad;
+	
+	@FieldValidate
+	private Double precio;
 
 	public TiendaProducto() {
 	}
@@ -86,6 +89,14 @@ public class TiendaProducto extends BaseEntity<Long> implements Serializable {
 
 	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
+	}
+	
+	public Double getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 
 	

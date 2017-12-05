@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.compras.business.repository.CompraRepository;
-import com.compras.business.repository.SesionRepository;
 import com.compras.business.repository.UserRepository;
 import com.compras.business.repository.UserRoleRepository;
 import com.compras.business.service.UserService;
@@ -76,10 +75,7 @@ public class UserServiceImpl implements UserService {
 				.map(authority -> new SimpleGrantedAuthority(authority.getRole().getNombre()))
 				.collect(Collectors.toList());
 
-		UserContext userContext = UserContext.create(user.getUsername(), authorities, user.getId());
-		
-		
-		
+		UserContext userContext = UserContext.create(user.getUsername(), authorities, user.getId());	
 		
 
 		return userContext;
@@ -91,20 +87,17 @@ public class UserServiceImpl implements UserService {
 		
 		Usuario user = this.userRepository.findUserByEmail(email);
 		
-		if(user != null){
-			user.setPassword(null);			
-			return user;
-		}else{
-			new ValidationException(ErrorCodeEnum.USER_NO_FOUND);
+		if(user == null){
+		  new ValidationException(ErrorCodeEnum.USER_NO_FOUND);
 		}
 		
-		return null;	
+		return user;	
 	}
 	
 	
 
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public void crearUsuario(Usuario usuario) throws Exception {
 		
 		Usuario OldUser = getUserByEmail(usuario.getEmail());
@@ -130,7 +123,7 @@ public class UserServiceImpl implements UserService {
 	
 
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public void updateUsuario(Usuario usuario) throws Exception {
 		
 		Usuario oldUsuario =  this.userRepository.findOne(usuario.getId());
@@ -155,7 +148,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public void deleteUsuario(Long id) throws Exception {
 
 

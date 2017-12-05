@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 import com.compras.commons.anotations.FieldValidate;
 
@@ -26,6 +27,7 @@ public class Producto extends BaseEntity<Long> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
+	
 	private Boolean activo;
 
 	@Column(name="codigo_barras")
@@ -36,12 +38,12 @@ public class Producto extends BaseEntity<Long> implements Serializable {
 	
 	@FieldValidate
 	private String nombre;
-
-	@FieldValidate
+	
+	@Transient
+	private Long cantidad;
+	
+	@Transient
 	private Double precio;
-	
-	
-
 	
 
 	public Producto() {
@@ -85,15 +87,22 @@ public class Producto extends BaseEntity<Long> implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}	
-	
-	
+	}
+
+	public Long getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	public Double getPrecio() {
-		return this.precio;
+		return precio;
 	}
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
-	}
+	}		
 
 }

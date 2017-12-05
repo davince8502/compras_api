@@ -4,7 +4,7 @@ import com.compras.domain.model.Producto;
 
 public interface ProductService {
 	
-	Producto findById(Long id);
+	Producto findById(Long id) throws Exception;
 	
 	void saveProducto(Producto producto) throws Exception;
 

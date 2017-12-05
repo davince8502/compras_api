@@ -71,6 +71,8 @@ public class LoginController  extends AbstratcController{
 				sesionService.saveSesion(session);			
 				
 				
+				user.setPassword(null);
+				
 				Map<String, Object> resultMap = new HashMap<>();
 				resultMap.put("accessToken", accessToken);
 				resultMap.put("user", user);

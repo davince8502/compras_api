@@ -46,12 +46,18 @@ public class PruductoController  extends AbstratcController{
 		
 		try {	
 			
+		
+			try {
 			
-		 		
-	 		Producto producto = productService.findById(idProducto);
+		 		Producto producto = productService.findById(idProducto);
+				
+				respuesta.setData(producto);
+				respuesta.setResponseCode(ErrorCodeEnum.OK.getCode());
 			
-			respuesta.setData(producto);
-			respuesta.setResponseCode(ErrorCodeEnum.OK.getCode());
+			
+			}catch (ValidationException e) {
+				return obtenerRespuestaFromValidateException(e, respuesta);
+			}
 	 	
 		}catch (Exception e) {			
 			this.obtenerRespuestaErrorGeneral(e, respuesta);

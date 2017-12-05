@@ -65,7 +65,8 @@ public class Compra extends BaseEntity<Long> implements Serializable {
 	private Long tipoPago;
 
 	@FieldValidate
-	private Long total;
+	@Column(name="total")
+	private Long totalCompra;
 	
 	@FieldValidate
 	@Transient
@@ -178,12 +179,12 @@ public class Compra extends BaseEntity<Long> implements Serializable {
 		this.tipoPago = tipoPago;
 	}
 
-	public Long getTotal() {
-		return total;
+	public Long getTotalCompra() {
+		return totalCompra;
 	}
 
-	public void setTotal(Long total) {
-		this.total = total;
+	public void setTotalCompra(Long totalCompra) {
+		this.totalCompra = totalCompra;
 	}
 
 	public List<Producto> getProductos() {

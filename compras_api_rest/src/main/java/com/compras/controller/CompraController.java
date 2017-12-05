@@ -1,8 +1,5 @@
 package com.compras.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +14,8 @@ import com.compras.business.service.CompraService;
 import com.compras.commons.contants.Constantes;
 import com.compras.commons.emuns.ErrorCodeEnum;
 import com.compras.commons.exception.ValidationException;
-import com.compras.domain.dto.FieldErrorDTO;
 import com.compras.domain.dto.ResponseServiceDTO;
 import com.compras.domain.model.Compra;
-import com.compras.domain.model.Producto;
 
 
 /**
@@ -51,29 +46,17 @@ public class CompraController  extends AbstratcController{
 		
 			try {
 			
-				validarEntidad(compra, respuesta);	
+				validarEntidad(compra, respuesta);				
 				
-				
-				if(CollectionUtils.isNotEmpty(compra.getProductos())){
+				if(CollectionUtils.isNotEmpty(compra.getProductos())){					
 					
-					
-					for (Producto producto : compra.getProductos()) {
-						
-						if(!(producto.getId() != null &&  producto.getId() > 0)){
-					
-							List<FieldErrorDTO> errores = new ArrayList<>();					
-							errores.add(new FieldErrorDTO("id", mesaggesGestorUtil.getMessage(Constantes.ERROR_VALIDACION_CAMPO_REQUERIDO, "id")));
-							
-							respuesta.setErrores(errores);
-							throw new ValidationException(ErrorCodeEnum.CAMPOS_INVALIDOS);							
-						}
-					}
+					this.validarCamposProductos(compra.getProductos(), respuesta);
 					
 				}else{
 					throw new ValidationException(ErrorCodeEnum.PRODUCTS_LIST_EMPTY);
 				}						
 			 		
-				compraService.saveCompra(compra);
+				respuesta.setData(compraService.saveCompra(compra));
 				
 				respuesta.setResponseCode(ErrorCodeEnum.OK.getCode());
 				
@@ -86,7 +69,12 @@ public class CompraController  extends AbstratcController{
 		}	
 	 	return new ResponseEntity<ResponseServiceDTO>(respuesta, HttpStatus.OK);
     }
-	
+
+
+
+
+
+		
 	
 	
 	

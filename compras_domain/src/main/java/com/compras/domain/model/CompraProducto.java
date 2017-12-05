@@ -10,6 +10,7 @@ import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.compras.commons.anotations.FieldValidate;
 import com.compras.domain.model.key.CompraProductoPK;
 
 
@@ -39,6 +40,12 @@ public class CompraProducto extends BaseEntity<Long>implements Serializable {
 	private Producto producto;
 
 	private Boolean activo;
+	
+	@FieldValidate
+	private Long cantidad;
+	
+	@FieldValidate
+	private Double precio;
 
 
 	public CompraProducto() {
@@ -82,6 +89,23 @@ public class CompraProducto extends BaseEntity<Long>implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+	
+	
+	public Long getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	public Double getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 	
 

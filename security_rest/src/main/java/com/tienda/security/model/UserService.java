@@ -2,9 +2,7 @@ package com.tienda.security.model;
 
 /**
  * 
- * 
- *
- * Aug 17, 2016
+ * UserService
  */
 public interface UserService {
 	

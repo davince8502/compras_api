@@ -67,7 +67,7 @@ public class TiendaServiceImpl implements TiendaService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public void addProductosToTienda(Tienda tienda) throws Exception  {
 		
 		Tienda tiendaOld = tiendaRepository.findOne(tienda.getId());
@@ -96,6 +96,8 @@ public class TiendaServiceImpl implements TiendaService {
 				TiendaProducto tiendaProducto = new TiendaProducto();
 				tiendaProducto.setTienda(tiendaOld);
 				tiendaProducto.setProducto(producto);
+				tiendaProducto.setCantidad(producto.getCantidad());
+				tiendaProducto.setPrecio(producto.getPrecio());
 				
 				tiendaProductoRepository.save(tiendaProducto);
 			}		

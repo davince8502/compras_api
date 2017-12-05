@@ -1,5 +1,6 @@
 package com.compras.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -15,6 +16,7 @@ import com.compras.commons.exception.ValidationException;
 import com.compras.commons.util.MessagesGestorUtil;
 import com.compras.domain.dto.FieldErrorDTO;
 import com.compras.domain.dto.ResponseServiceDTO;
+import com.compras.domain.model.Producto;
 import com.compras.util.ValidationUtils;
 
 
@@ -91,6 +93,35 @@ public abstract class AbstratcController {
 			
 		}
 		
+	}
+	
+	
+	
+	
+	protected void validarCamposProductos(List<Producto> productos, ResponseServiceDTO respuesta) throws ValidationException {
+		
+		for (Producto producto : productos) {
+			
+			List<FieldErrorDTO> errores = new ArrayList<>();		
+			
+			if(!(producto.getId() != null &&  producto.getId() > 0)){							
+				errores.add(new FieldErrorDTO("id", mesaggesGestorUtil.getMessage(Constantes.ERROR_VALIDACION_CAMPO_REQUERIDO, "id")));									
+			}
+			
+			if(!(producto.getCantidad() != null &&  producto.getCantidad() > 0)){							
+				errores.add(new FieldErrorDTO("cantidad", mesaggesGestorUtil.getMessage(Constantes.ERROR_VALIDACION_CAMPO_REQUERIDO, "cantidad")));									
+			}
+			
+			if(!(producto.getPrecio() != null &&  producto.getPrecio() > 0)){							
+				errores.add(new FieldErrorDTO("precio", mesaggesGestorUtil.getMessage(Constantes.ERROR_VALIDACION_CAMPO_REQUERIDO, "precio")));									
+			}		
+			
+			if(CollectionUtils.isNotEmpty(errores)){
+				respuesta.setErrores(errores);
+				throw new ValidationException(ErrorCodeEnum.CAMPOS_INVALIDOS);	
+			}			
+			
+		}
 	}
 	
 	

@@ -23,8 +23,15 @@ public class ProductServiceImpl implements ProductService {
 	
 
 	@Override
-	public Producto findById(Long id) {
-		return this.productoRepository.findOne(id);
+	public Producto findById(Long id) throws Exception{
+		
+		Producto producto =  productoRepository.findOne(id);
+		
+		if(producto == null){
+			throw new ValidationException(ErrorCodeEnum.PRODUCTO_NO_FOUND, id);
+		}
+		
+		return producto;
 	}
 
 	@Override
