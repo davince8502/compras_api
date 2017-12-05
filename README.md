@@ -14,7 +14,7 @@ servicios web REST base para compras basado en SPRING. Usa PostgreSQL como base 
 Clonar el repositorio usando Git:
 
 ```bash
-git clone https://github.com/google/material-design-lite.git
+git clone https://github.com/davince8502/compras_api.git
 ```
 
 De otra forma, puede [decargar](https://github.com/davince8502/compras_api/archive/master.zip)
