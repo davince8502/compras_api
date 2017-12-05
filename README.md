@@ -162,7 +162,7 @@ spring.jpa:
 ```
 
 
-Datos de Generación JTW - JSON Web Token
+Datos de Generación JWT - JSON Web Token
 
 ```shell
 rest.security.jwt:
