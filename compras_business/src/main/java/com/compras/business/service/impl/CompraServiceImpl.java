@@ -1,8 +1,5 @@
 package com.compras.business.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -56,7 +53,7 @@ public class CompraServiceImpl implements CompraService {
 
 	@Override
 	@Transactional(rollbackOn = Exception.class)
-	public Compra saveCompra(Compra compra) throws Exception {
+	public void saveCompra(Compra compra) throws Exception {
 		
 		
 		Usuario user = userRepository.findOne(compra.getIdCliente());
@@ -75,15 +72,10 @@ public class CompraServiceImpl implements CompraService {
 		compra.setEstado(EstadoCompraEnum.INICIADO.getCode());
 		compra.setCliente(user);
 		compra.setTienda(tienda);
-		
-		List<Producto> productosTienda = new ArrayList<>();
 				
-		compraRepository.save(compra);
+		compraRepository.save(compra);		
 		
-		List<Producto> endProductos = new ArrayList<>();
-		
-		if(CollectionUtils.isNotEmpty(compra.getProductos())){
-			
+		if(CollectionUtils.isNotEmpty(compra.getProductos())){			
 			
 			for (Producto producto : compra.getProductos()) {
 				
@@ -95,28 +87,18 @@ public class CompraServiceImpl implements CompraService {
 				
 				if(tiendaProductoRepository.existProductoIntoTienda(producto.getId(), compra.getIdTienda() ) == 0){
 					throw new ValidationException(ErrorCodeEnum.PRODUCTO_NO_ESTA_EN_TIENDA, producto.getId(), compra.getIdTienda());
-				}
-				
-				endProductos.add(OldProducto);
-				productosTienda.add(OldProducto);
-				
+				}				
+			
 				CompraProducto compraProducto = new CompraProducto();
 				compraProducto.setCompra(compra);
 				compraProducto.setProducto(producto);
 				compraProducto.setPrecio(producto.getPrecio());
 				compraProducto.setCantidad(producto.getCantidad());
 				
-				compraProductoRepository.save(compraProducto);
-				
-			}		
+				compraProductoRepository.save(compraProducto);				
+			}	
 			
 		}
-		
-		tienda.setProductos(productosTienda);
-		compra.setProductos(endProductos);
-		
-		return compra;
-		
 		
 	}
 

@@ -56,7 +56,7 @@ public class CompraController  extends AbstratcController{
 					throw new ValidationException(ErrorCodeEnum.PRODUCTS_LIST_EMPTY);
 				}						
 			 		
-				respuesta.setData(compraService.saveCompra(compra));
+				compraService.saveCompra(compra);
 				
 				respuesta.setResponseCode(ErrorCodeEnum.OK.getCode());
 				
