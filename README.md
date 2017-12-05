@@ -64,7 +64,7 @@ Ejecutar 2017_12_02_1_DDL_Data_inicial.sql
 
 ###  Desplegar Servidor
 
-Compilar el proyecto y desplegar el WAR en tomcat o Jboss.
+Compilar el proyecto y desplegar el WAR en Tomcat >= v8.0  ó Wildfly >= 9.0.
 
 Debera ver el siguiente resultado:
 
