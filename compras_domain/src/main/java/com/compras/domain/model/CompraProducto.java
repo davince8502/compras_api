@@ -25,7 +25,7 @@ public class CompraProducto extends BaseEntity<Long>implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private CompraProductoPK id;
+	private CompraProductoPK id = new CompraProductoPK();
 	
 	
 	@ManyToOne

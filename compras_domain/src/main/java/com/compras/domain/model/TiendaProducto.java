@@ -26,7 +26,7 @@ public class TiendaProducto extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private TiendaProductoPK id;	
+	private TiendaProductoPK id = new TiendaProductoPK();	
 	
 	@ManyToOne
 	@MapsId("tiendaId")

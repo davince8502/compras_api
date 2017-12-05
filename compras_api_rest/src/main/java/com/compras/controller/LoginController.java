@@ -1,5 +1,6 @@
 package com.compras.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.compras.business.service.SesionService;
 import com.compras.business.service.UserService;
 import com.compras.commons.emuns.ErrorCodeEnum;
 import com.compras.commons.exception.ValidationException;
 import com.compras.domain.dto.ResponseServiceDTO;
+import com.compras.domain.model.Sesion;
 import com.compras.domain.model.Usuario;
 import com.tienda.security.config.WebSecurityConfig;
 import com.tienda.security.model.UserContext;
@@ -41,6 +44,9 @@ public class LoginController  extends AbstratcController{
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private SesionService sesionService;
+	
 	
 	@RequestMapping(value = WebSecurityConfig.FORM_BASED_LOGIN_ENTRY_POINT, method=RequestMethod.POST, produces={ MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<ResponseServiceDTO> loginUser(@RequestBody Usuario usuario) {
@@ -54,7 +60,16 @@ public class LoginController  extends AbstratcController{
 	
 				AccessJwtToken accessToken = tokenFactory.createAccessJwtToken(userContext);
 				
-				Usuario user = userService.getUserByEmail(usuario.getEmail());
+				Usuario user = userService.getUserByEmail(usuario.getEmail());				
+				
+				Sesion session = new Sesion();
+				session.setIdUsuario(user.getId());
+				session.setToken(accessToken.getToken());
+				session.setIngresoEn(new Date());
+				session.setCreadoEn(new Date());
+				
+				sesionService.saveSesion(session);			
+				
 				
 				Map<String, Object> resultMap = new HashMap<>();
 				resultMap.put("accessToken", accessToken);
@@ -68,8 +83,7 @@ public class LoginController  extends AbstratcController{
 			}
 	 	
 		}catch (Exception e) {			
-			respuesta.setResponseCode(ErrorCodeEnum.GENERAL_ERROR.getCode());
-			respuesta.setResponseMessage(e.getMessage());
+			this.obtenerRespuestaErrorGeneral(e, respuesta);
 		}	
 	 	return new ResponseEntity<ResponseServiceDTO>(respuesta, HttpStatus.OK);
     }

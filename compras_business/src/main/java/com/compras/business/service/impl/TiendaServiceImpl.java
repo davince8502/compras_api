@@ -82,9 +82,9 @@ public class TiendaServiceImpl implements TiendaService {
 		
 			for (Producto producto : tienda.getProductos()) {
 				
-				producto = productoRepository.findOne(producto.getId());
+				Producto OldProducto = productoRepository.findOne(producto.getId());
 				
-				if(producto == null){
+				if(OldProducto == null){
 					throw new ValidationException(ErrorCodeEnum.PRODUCTO_NO_FOUND, producto.getId());
 				}
 				

@@ -1,8 +1,14 @@
 package com.compras.domain.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -20,15 +26,14 @@ public class Sesion implements Serializable {
 	private Long id;
 
 	@Column(name="creado_en")
-	private Timestamp creadoEn;
+	private Date creadoEn;
 
 	@Column(name="datos_sesion")
 	private String datosSesion;
 
-	private Long estado;
 
 	@Column(name="ingreso_en")
-	private Timestamp ingresoEn;
+	private Date ingresoEn;
 
 	@Column(name="num_intentos")
 	private Long numIntentos;
@@ -38,10 +43,9 @@ public class Sesion implements Serializable {
 
 	private String token;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+
+	@Column(name="id_usuario")
+	private Long idUsuario;
 	
 	
 	
@@ -57,11 +61,11 @@ public class Sesion implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getCreadoEn() {
+	public Date getCreadoEn() {
 		return this.creadoEn;
 	}
 
-	public void setCreadoEn(Timestamp creadoEn) {
+	public void setCreadoEn(Date creadoEn) {
 		this.creadoEn = creadoEn;
 	}
 
@@ -73,19 +77,11 @@ public class Sesion implements Serializable {
 		this.datosSesion = datosSesion;
 	}
 
-	public Long getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(Long estado) {
-		this.estado = estado;
-	}
-
-	public Timestamp getIngresoEn() {
+	public Date getIngresoEn() {
 		return this.ingresoEn;
 	}
 
-	public void setIngresoEn(Timestamp ingresoEn) {
+	public void setIngresoEn(Date ingresoEn) {
 		this.ingresoEn = ingresoEn;
 	}
 
@@ -113,12 +109,13 @@ public class Sesion implements Serializable {
 		this.token = token;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
+
 
 }

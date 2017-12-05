@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.compras.business.repository.CompraRepository;
+import com.compras.business.repository.SesionRepository;
 import com.compras.business.repository.UserRepository;
 import com.compras.business.repository.UserRoleRepository;
 import com.compras.business.service.UserService;
@@ -45,10 +46,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
     private CompraRepository compraRepository;
+	
     
     @Autowired
     private BCryptPasswordEncoder encoder;
-   
+    
+  
     
     public UserRepository getUserRepository() {
         return userRepository;
@@ -74,6 +77,10 @@ public class UserServiceImpl implements UserService {
 				.collect(Collectors.toList());
 
 		UserContext userContext = UserContext.create(user.getUsername(), authorities, user.getId());
+		
+		
+		
+		
 
 		return userContext;
 	}

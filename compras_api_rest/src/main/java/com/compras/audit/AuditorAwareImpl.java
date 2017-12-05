@@ -17,9 +17,15 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
             return null;
         }
         
-        Integer idUser = (Integer) ((UserContext) authentication.getPrincipal()).getDataUser();
- 
-        return Long.valueOf(idUser.intValue());
+        if(!authentication.getPrincipal().equals("anonymousUser")){
+        	Integer idUser = (Integer) ((UserContext) authentication.getPrincipal()).getDataUser();
+        	 
+            return Long.valueOf(idUser.intValue());
+        }
+        
+        return null;
+        
+        
         
     }
 }

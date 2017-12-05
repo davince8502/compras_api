@@ -45,6 +45,7 @@ public class Compra extends BaseEntity<Long> implements Serializable {
 	private Long idCliente;
 	
 	@JoinColumn(name="id_cliente")
+	@ManyToOne
 	private Usuario cliente;
 
 	@FieldValidate
@@ -52,11 +53,11 @@ public class Compra extends BaseEntity<Long> implements Serializable {
 	private Long idTienda;
 	
 	@JoinColumn(name="id_tienda")
+	@ManyToOne
 	private Tienda tienda;
 
 	private String observacion;
 	
-	@FieldValidate
 	private String estado;
 
 	@Column(name="tipo_pago")

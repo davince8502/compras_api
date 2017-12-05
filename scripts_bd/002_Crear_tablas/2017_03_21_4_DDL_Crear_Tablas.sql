@@ -196,8 +196,7 @@ COMMENT ON TRIGGER fecha_modificacion_usuario_role ON compras_tienda.usuario_rol
 CREATE TABLE compras_tienda.sesion (
                 id bigserial NOT NULL,
 				id_usuario BIGINT NOT NULL,
-                creado_en timestamp without time zone DEFAULT now(),
-                estado BIGINT DEFAULT 1 NOT NULL,
+                creado_en timestamp without time zone DEFAULT now(),               
                 ingreso_en timestamp without time zone NOT NULL DEFAULT now(),
                 num_intentos BIGINT,
 				datos_sesion character varying(250),
@@ -434,7 +433,7 @@ CREATE TABLE compras_tienda.compra (
 			cantidad BIGINT NOT NULL,
 			total BIGINT NOT NULL,
 			tipo_pago BIGINT NOT NULL,
-			observacion VARCHAR(500) NOT NULL,
+			observacion VARCHAR(500),
 			estado VARCHAR(20) NOT NULL,
 			direccion_envio VARCHAR(500) NOT NULL,	
 			fecha_solicitud timestamp without time zone DEFAULT now(),	

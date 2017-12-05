@@ -6,6 +6,6 @@ public interface CompraService {
 	
 	Compra findById(Long id);
 	
-	void saveCompra(Compra compra) throws Exception;
+	Compra saveCompra(Compra compra) throws Exception;
 
 }
