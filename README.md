@@ -22,7 +22,7 @@ el repositorio en .zip.
 
 ###  Importar Proyecto
 
-Importar el proyecto Gradle en eclipse, se puede seguir la [guia](https://docs.spring.io/sts/docs/2.9.0.old/reference/html/gradle/gradle-sts-tutorial.html).
+Importar el proyecto Gradle en eclipse, se puede seguir la [guia](http://www.vogella.com/tutorials/EclipseGradle/article.html).
 
 
 ###  Configurar Base de Datos
